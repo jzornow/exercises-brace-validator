@@ -1,10 +1,12 @@
 class BracesValidator
 
   BRACE_PAIRS = {
-    '(' => ')'
+    '(' => ')',
+    '[' => ']',
+    '{' => '}'
   }
 
-  ALL_BRACES = /[\(\)]/
+  ALL_BRACES = /[\(\)\[\]\{\}]/
 
   def self.valid?(string)
     braces = string.scan ALL_BRACES
