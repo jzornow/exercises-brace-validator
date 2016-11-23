@@ -27,5 +27,19 @@ describe BracesValidator do
     include_examples 'a brace validator', 'paren',          '(', ')'
     include_examples 'a brace validator', 'square bracket', '[', ']'
     include_examples 'a brace validator', 'curly bracket',  '{', '}'
+
+    context 'given a combination of brace types' do
+      it 'returns true if all braces are matched and appropriately ordered' do
+        expect_valid_string 'This (is a [string {with} nested] [braces])'
+      end
+
+      it 'returns false if braces are unmatched' do
+        expect_invalid_string 'This (is a [string {with} nested] [braces]'
+      end
+
+      it 'returns false if braces are ordered improperly' do
+        expect_invalid_string 'This (is a [string {with} nested)] [braces]'
+      end
+    end
   end
 end
