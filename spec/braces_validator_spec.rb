@@ -41,5 +41,23 @@ describe BracesValidator do
         expect_validation_to_be 'This sentence) has two) close parens.', false
       end
     end
+
+    context 'given a string with multiple pairs of parens' do
+      it 'returns true if parens are in matching un-nested pairs' do
+        expect_validation_to_be 'This (sentence) has (un-nested) parens', true
+      end
+
+      it 'returns false if parens are not in matching un-nested pairs' do
+        expect_validation_to_be 'This (sentence) has (un-nested( parens', false
+      end
+
+      it 'returns true if parens are in matching nested pairs' do
+        expect_validation_to_be 'This (sentence (has) nested parens).', true
+      end
+
+      it 'returns false if parens are not in matching nested pairs' do
+        expect_validation_to_be 'This (sentence (has( nested parens).', false
+      end
+    end
   end
 end
