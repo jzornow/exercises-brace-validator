@@ -1,15 +1,9 @@
 class BracesValidator
 
-  BRACE_PAIRS = {
-    '(' => ')',
-    '[' => ']',
-    '{' => '}'
-  }
-
-  ALL_BRACES = /[\(\)\[\]\{\}]/
+  BRACE_PAIRS = Hash['(',')','[',']','{','}']
 
   def self.valid?(string)
-    braces = string.scan ALL_BRACES
+    braces = string.scan all_brackets_regexp
     close_brace_stack = []
 
     while braces.any?
@@ -35,4 +29,7 @@ class BracesValidator
     BRACE_PAIRS[open] == close
   end
 
+  def self.all_brackets_regexp
+    Regexp.new "[#{Regexp.escape (BRACE_PAIRS.keys + BRACE_PAIRS.values).join}]"
+  end
 end
